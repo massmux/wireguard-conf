@@ -107,3 +107,6 @@ PublicKey = PEER1PUB
 AllowedIPs = 192.168.6.2/32
 EOF
 
+echo "server public key is: $srvpub"
+
+#systemctl restart wg-quick@wg0.service 
