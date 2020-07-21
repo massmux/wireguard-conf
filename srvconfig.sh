@@ -2,17 +2,19 @@
 
 #WORKDIR="/tmp"
 WORKDIR="/etc/wireguard"
+IFACE="eth0"
+IPORT="41194"
 
 if ! [ $(id -u) = 0 ]; then
    echo "This script must be run as root"
    exit 1
 fi
 
+echo "installing software"
 apt-get update
 apt-get -y install wireguard
 
 cd $WORKDIR
-
 echo "generating private/public key pair for this server"
 umask 077
 wg genkey | tee privatekey | wg pubkey > publickey
@@ -44,10 +46,10 @@ tee $WORKDIR/helper/add-nat-routing.sh <<EOF
 IPT="/sbin/iptables"
 IPT6="/sbin/ip6tables"
 
-IN_FACE="eth0"                   # NIC connected to the internet
+IN_FACE="$IFACE"                   # NIC connected to the internet
 WG_FACE="wg0"                    # WG NIC
 SUB_NET="192.168.6.0/24"            # WG IPv4 sub/net aka CIDR
-WG_PORT="41194"                  # WG udp port
+WG_PORT="$IPORT"                  # WG udp port
 SUB_NET_6="fd42:42:42:42::/112"  # WG IPv6 sub/net
 
 ## IPv4 ##
@@ -69,10 +71,10 @@ tee $WORKDIR/helper/remove-nat-routing.sh <<EOF
 IPT="/sbin/iptables"
 IPT6="/sbin/ip6tables"          
  
-IN_FACE="eth0"                   # NIC connected to the internet
+IN_FACE="$IFACE"                   # NIC connected to the internet
 WG_FACE="wg0"                    # WG NIC 
 SUB_NET="192.168.6.0/24"            # WG IPv4 sub/net aka CIDR
-WG_PORT="41194"                  # WG udp port
+WG_PORT="$IPORT"                  # WG udp port
 SUB_NET_6="fd42:42:42:42::/112"  # WG IPv6 sub/net
  
 # IPv4 rules #
@@ -108,5 +110,5 @@ AllowedIPs = 192.168.6.2/32
 EOF
 
 echo "server public key is: $srvpub"
-
-#systemctl restart wg-quick@wg0.service 
+echo "after configuring the client, add peer public key to wg0.conf"
+echo "and then restart service: systemctl restart wg-quick@wg0.service"

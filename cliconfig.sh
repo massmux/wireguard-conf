@@ -3,6 +3,7 @@
 #WORKDIR="/tmp"
 WORKDIR="/etc/wireguard"
 SRVIPPORT="159.69.107.228:41194"
+SRVPUB="xxxx"
 
 if ! [ $(id -u) = 0 ]; then
    echo "This script must be run as root"
@@ -46,6 +47,10 @@ PersistentKeepalive = 15
 PublicKey = $clipub
 EOF
 
-echo "peer public key is: $clipub"
+echo "restarting the client"
+systemctl restart wg-quick@wg0.service
 
-##systemctl restart wg-quick@wg0.service 
+echo "peer public key is: $clipub"
+echo "insert the client public key to wg0.conf on the server"
+echo "and then restart the server: systemctl restart wg-quick@wg0.service"
+
