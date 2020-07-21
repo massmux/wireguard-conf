@@ -3,12 +3,17 @@
 #WORKDIR="/tmp"
 WORKDIR="/etc/wireguard"
 
-sudo apt-get update
-sudo apt-get -y install wireguard
+if ! [ $(id -u) = 0 ]; then
+   echo "This script must be run as root"
+   exit 1
+fi
+
+apt-get update
+apt-get -y install wireguard
 
 cd $WORKDIR
 
-# creating public/private key pair
+echo "generating private/public key pair for this server"
 umask 077
 wg genkey | tee privatekey | wg pubkey > publickey
 
