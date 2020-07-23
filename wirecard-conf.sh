@@ -23,8 +23,7 @@ select fav in "${opts[@]}"; do
 	    IFACE=${IFACE:-eth0}
 	    SRVIPPORT="$serverip:$IPORT"
 	    echo "Server: $SRVIPPORT, server interface: $IFACE"
-	    echo "Shall i run server config? [enter] to continue or CTRL+C to exit"
-	    read
+	    read -p "Shall i run server config? [enter] to continue or CTRL+C to exit" cont
             echo "Running server configuration"
 	    source server_configure.sh
             echo "Complete"
@@ -37,8 +36,7 @@ select fav in "${opts[@]}"; do
 	    IPORT=${IPORT:-41194}
 	    SRVIPPORT="$serverip:$IPORT"
 	    echo "Server: $SRVIPPORT"
-	    echo "Shall i run client config? [enter] to continue or CTRL+C to exit"
-	    read
+	    read -p "Shall i run client config? [enter] to continue or CTRL+C to exit" cont
             echo "Running client configuration"
 	    source client_configure.sh
             echo "Complete"
