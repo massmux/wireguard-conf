@@ -94,7 +94,7 @@ echo "writing wg0.conf file"
 tee wg0.conf <<EOF
 [Interface]
 Address = 192.168.6.1/24
-ListenPort = 41194
+ListenPort = $IPORT
 PrivateKey = $srvpriv
 PostUp = $WORKDIR/helper/add-nat-routing.sh
 PostDown = $WORKDIR/helper/remove-nat-routing.sh
