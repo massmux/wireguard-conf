@@ -10,11 +10,12 @@ WORKDIR="/tmp/wireguard"
 SRVPUB="xxxx"
 
 clear
-PS3='Wireguard config, chose an option: '
+PS3='Wireguard config, choose an option: '
 opts=("Server" "Client" "Set pubkey" "Quit")
 select fav in "${opts[@]}"; do
     case $fav in
         "Server")
+	    echo "**to be run on SERVER**"
 	    read -p "Enter server ip [1.2.3.4]: " serverip
 	    serverip=${serverip:-1.2.3.4}
 	    read -p "Enter server port [41194]: " IPORT
@@ -30,12 +31,14 @@ select fav in "${opts[@]}"; do
 	    exit
             ;;
         "Client")
+	    echo "**to be run on CLIENT**"
 	    read -p "Enter server ip [1.2.3.4]: " serverip
 	    serverip=${serverip:-1.2.3.4}
 	    read -p "Enter server port [41194]: " IPORT
 	    IPORT=${IPORT:-41194}
+	    read -p "Enter server pub key: " SRVPUB
 	    SRVIPPORT="$serverip:$IPORT"
-	    echo "Server: $SRVIPPORT"
+	    echo "Server: $SRVIPPORT, server pub key: $SRVPUB"
 	    read -p "Shall i run client config? [enter] to continue or CTRL+C to exit" cont
             echo "Running client configuration"
 	    source client_configure.sh
@@ -43,11 +46,16 @@ select fav in "${opts[@]}"; do
 	    exit
             ;;
         "Set pubkey")
+	    echo "**to be run on SERVER**"
 	    read -p "Enter client's pubkey for the server: " clipubkey
+	    echo "Client's pub key: $clipubkey"
+	    read -p "Shall i set client's pub key? [enter] to continue or CTRL+C to exit" cont
+	    sed -i 's/PEER1PUB/$clipubkey/g' $WORKDIR/wg0.conf
+            echo "Complete"
             break
             ;;
         "Quit")
-            echo "User requested exit"
+            echo "Quit script"
             exit
             ;;
         *) echo "invalid option $REPLY";;
