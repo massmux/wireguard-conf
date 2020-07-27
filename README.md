@@ -2,7 +2,7 @@
 
  this script can be run on the VPS server in order to create a running configuration of wireguard VPN and also on linux client in order to connect to the server.
 
- the script has been tested on Ubuntu 20.04 server and client.
+ the script has been tested on Ubuntu 20.04 server and client. The server tested is VMB1 server on https://www.tritema.ch hosting provider. Cheap and easy to use vps server.
 
  procedure is simple:
 
