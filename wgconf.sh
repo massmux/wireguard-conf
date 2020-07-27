@@ -1,12 +1,12 @@
 #!/bin/bash
 
 
-#if ! [ $(id -u) = 0 ]; then
-#   echo "This script must be run as root"
-#   exit 1
-#fi
+if ! [ $(id -u) = 0 ]; then
+   echo "This script must be run as root"
+   exit 1
+fi
 
-WORKDIR="/tmp/wireguard"
+WORKDIR="/etc/wireguard"
 SRVPUB="xxxx"
 
 clear
@@ -50,7 +50,8 @@ select fav in "${opts[@]}"; do
 	    read -p "Enter client's pubkey for the server: " clipubkey
 	    echo "Client's pub key: $clipubkey"
 	    read -p "Shall i set client's pub key? [enter] to continue or CTRL+C to exit" cont
-	    sed -i 's/PEER1PUB/$clipubkey/g' $WORKDIR/wg0.conf
+	    sed -i "s/PEER1PUB/$clipubkey/g" $WORKDIR/wg0.conf
+	    systemctl restart wg-quick@wg0.service
             echo "Complete"
             break
             ;;

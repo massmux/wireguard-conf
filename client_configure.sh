@@ -1,13 +1,9 @@
 #!/bin/bash
 
 
-#if ! [ $(id -u) = 0 ]; then
-#   echo "This script must be run as root"
-#   exit 1
-#fi
-
-#apt-get update
-#apt-get -y install wireguard
+echo "installing software"
+apt-get update
+apt-get -y install wireguard
 
 mkdir $WORKDIR
 cd $WORKDIR
@@ -43,8 +39,11 @@ PersistentKeepalive = 15
 PublicKey = $clipub
 EOF
 
+echo "enabling the client"
+systemctl enable wg-quick@wg0.service
+
 echo "restarting the client"
-##systemctl restart wg-quick@wg0.service
+systemctl restart wg-quick@wg0.service
 
 echo "peer public key is: $clipub"
 echo "insert the client public key to wg0.conf on the server"

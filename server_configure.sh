@@ -1,14 +1,9 @@
 #!/bin/bash
 
 
-#if ! [ $(id -u) = 0 ]; then
-#   echo "This script must be run as root"
-#   exit 1
-#fi
-
 echo "installing software"
-#apt-get update
-#apt-get -y install wireguard
+apt-get update
+apt-get -y install wireguard
 
 cd $WORKDIR
 echo "generating private/public key pair for this server"
@@ -26,13 +21,13 @@ RE='^[[:xdigit:]]{1,4}(:[[:xdigit:]]{1,4}){7}$'
 IPv6_ADDRESS=( $(for i in ${IP_ADDRESS[*]}; do [[ "$i" =~ $RE ]] && echo "$i"; done) )
 
 echo "setting ip forward"
-##tee /etc/sysctl.d/10-wireguard.conf <<EOF
-##net.ipv4.ip_forward=1
-##net.ipv6.conf.all.forwarding=1
-##EOF
+tee /etc/sysctl.d/10-wireguard.conf <<EOF
+net.ipv4.ip_forward=1
+net.ipv6.conf.all.forwarding=1
+EOF
 
 echo "activating ip forward"
-##sysctl -p /etc/sysctl.d/10-wireguard.conf
+sysctl -p /etc/sysctl.d/10-wireguard.conf
 
 echo "creating helpers"
 mkdir $WORKDIR/helper
