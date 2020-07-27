@@ -52,7 +52,7 @@ select fav in "${opts[@]}"; do
 	    read -p "Enter client's pubkey for the server: " clipubkey
 	    echo "Client's pub key: $clipubkey"
 	    read -p "Shall i set client's pub key? [enter] to continue or CTRL+C to exit" cont
-	    sed -i "s/PEER1PUB/$clipubkey/g" $WORKDIR/wg0.conf
+	    sed -i "s#PEER1PUB#$clipubkey#g" $WORKDIR/wg0.conf
 	    systemctl restart wg-quick@wg0.service
             echo "Complete"
             break
