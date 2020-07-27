@@ -27,6 +27,8 @@ select fav in "${opts[@]}"; do
 	    read -p "Shall i run server config? [enter] to continue or CTRL+C to exit" cont
             echo "Running server configuration"
 	    source server_configure.sh
+	    echo "restarting the server"
+	    systemctl restart wg-quick@wg0.service
             echo "Complete"
 	    exit
             ;;

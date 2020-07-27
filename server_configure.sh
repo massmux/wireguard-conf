@@ -37,10 +37,10 @@ tee $WORKDIR/helper/add-nat-routing.sh <<EOF
 IPT="/sbin/iptables"
 IPT6="/sbin/ip6tables"
 
-IN_FACE="\$IFACE"                   # NIC connected to the internet
+IN_FACE="$IFACE"                   # NIC connected to the internet
 WG_FACE="wg0"                    # WG NIC
 SUB_NET="192.168.6.0/24"            # WG IPv4 sub/net aka CIDR
-WG_PORT="\$IPORT"                  # WG udp port
+WG_PORT="$IPORT"                  # WG udp port
 SUB_NET_6="fd42:42:42:42::/112"  # WG IPv6 sub/net
 
 ## IPv4 ##
@@ -61,10 +61,10 @@ tee $WORKDIR/helper/remove-nat-routing.sh <<EOF
 IPT="/sbin/iptables"
 IPT6="/sbin/ip6tables"          
  
-IN_FACE="\$IFACE"                   # NIC connected to the internet
+IN_FACE="$IFACE"                   # NIC connected to the internet
 WG_FACE="wg0"                    # WG NIC 
 SUB_NET="192.168.6.0/24"            # WG IPv4 sub/net aka CIDR
-WG_PORT="\$IPORT"                  # WG udp port
+WG_PORT="$IPORT"                  # WG udp port
 SUB_NET_6="fd42:42:42:42::/112"  # WG IPv6 sub/net
  
 # IPv4 rules #
@@ -99,5 +99,4 @@ AllowedIPs = 192.168.6.2/32
 EOF
 
 echo "server public key is: $srvpub"
-echo "after configuring the client, add peer public key to wg0.conf"
-echo "and then restart service: systemctl restart wg-quick@wg0.service"
+echo "after configuring the client, add peer public key with opt. 3"
