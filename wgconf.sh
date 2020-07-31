@@ -65,7 +65,7 @@ select fav in "${opts[@]}"; do
 	    SRVIPPORT="$serverip:$IPORT"
 	    read -p "Enter peer private ip [192.168.6.2/24]: " peerprivip
 	    peerprivip=${peerprivip:-192.168.6.2\/24}
-	    echo "Server: $SRVIPPORT, server pub key: $SRVPUB"
+	    echo "Server: $SRVIPPORT, server pub key: $SRVPUB, peer priv ip: $peerprivip"
 	    read -p "Shall i run client config? [enter] to continue or CTRL+C to exit" cont
             echo "Running client configuration"
 	    source client_configure.sh

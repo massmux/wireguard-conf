@@ -35,12 +35,6 @@ wg genkey | tee privatekey | wg pubkey > publickey
 clipub=`cat publickey`
 clipriv=`cat privatekey`
 
-#CFG_HOSTNAME_FQDN=$(hostname -f); # hostname -A
-#IP_ADDRESS=( $(hostname -I) );
-#RE='^2([0-4][0-9]|5[0-5])|1?[0-9][0-9]{1,2}(\.(2([0-4][0-9]|5[0-5])|1?[0-9]{1,2})){3}$'
-#IPv4_ADDRESS=( $(for i in ${IP_ADDRESS[*]}; do [[ "$i" =~ $RE ]] && echo "$i"; done) )
-#RE='^[[:xdigit:]]{1,4}(:[[:xdigit:]]{1,4}){7}$'
-#IPv6_ADDRESS=( $(for i in ${IP_ADDRESS[*]}; do [[ "$i" =~ $RE ]] && echo "$i"; done) )
 
 echo "writing wg0.conf file"
 tee wg0.conf <<EOF
