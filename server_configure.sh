@@ -35,12 +35,12 @@ wg genkey | tee privatekey | wg pubkey > publickey
 srvpub=`cat publickey`
 srvpriv=`cat privatekey`
 
-CFG_HOSTNAME_FQDN=$(hostname -f); # hostname -A
-IP_ADDRESS=( $(hostname -I) );
-RE='^2([0-4][0-9]|5[0-5])|1?[0-9][0-9]{1,2}(\.(2([0-4][0-9]|5[0-5])|1?[0-9]{1,2})){3}$'
-IPv4_ADDRESS=( $(for i in ${IP_ADDRESS[*]}; do [[ "$i" =~ $RE ]] && echo "$i"; done) )
-RE='^[[:xdigit:]]{1,4}(:[[:xdigit:]]{1,4}){7}$'
-IPv6_ADDRESS=( $(for i in ${IP_ADDRESS[*]}; do [[ "$i" =~ $RE ]] && echo "$i"; done) )
+#CFG_HOSTNAME_FQDN=$(hostname -f); # hostname -A
+#IP_ADDRESS=( $(hostname -I) );
+#RE='^2([0-4][0-9]|5[0-5])|1?[0-9][0-9]{1,2}(\.(2([0-4][0-9]|5[0-5])|1?[0-9]{1,2})){3}$'
+#IPv4_ADDRESS=( $(for i in ${IP_ADDRESS[*]}; do [[ "$i" =~ $RE ]] && echo "$i"; done) )
+#RE='^[[:xdigit:]]{1,4}(:[[:xdigit:]]{1,4}){7}$'
+#IPv6_ADDRESS=( $(for i in ${IP_ADDRESS[*]}; do [[ "$i" =~ $RE ]] && echo "$i"; done) )
 
 echo "setting ip forward"
 tee /etc/sysctl.d/10-wireguard.conf <<EOF
@@ -108,7 +108,7 @@ chmod -v +x $WORKDIR/helper/*.sh
 echo "writing wg0.conf file"
 tee wg0.conf <<EOF
 [Interface]
-Address = 192.168.6.1/24
+Address = $srvprivip
 ListenPort = $IPORT
 PrivateKey = $srvpriv
 PostUp = $WORKDIR/helper/add-nat-routing.sh
@@ -117,8 +117,12 @@ PostDown = $WORKDIR/helper/remove-nat-routing.sh
 [Peer]
 # must be changed with peer1 public key
 PublicKey = PEER1PUB
-AllowedIPs = 192.168.6.2/32
+AllowedIPs = $peerprivip
 EOF
+
+echo "enabling the server"
+systemctl enable wg-quick@wg0.service
+
 
 echo "server public key is: $srvpub"
 echo "after configuring the client, add peer public key with opt. 3"

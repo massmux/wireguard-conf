@@ -23,10 +23,10 @@
 
 
 
-if ! [ $(id -u) = 0 ]; then
-   echo "This script must be run as root"
-   exit 1
-fi
+#if ! [ $(id -u) = 0 ]; then
+#   echo "This script must be run as root"
+#   exit 1
+#fi
 
 WORKDIR="/etc/wireguard"
 
@@ -43,8 +43,10 @@ select fav in "${opts[@]}"; do
 	    IPORT=${IPORT:-41194}
 	    read -p "Enter server interface [eth0]: " IFACE
 	    IFACE=${IFACE:-eth0}
+	    read -p "Enter server private ip [192.168.6.1/24]: " srvprivip
+	    srvprivip=${srvprivip:-192.168.6.1\/24}
 	    SRVIPPORT="$serverip:$IPORT"
-	    echo "Server: $SRVIPPORT, server interface: $IFACE"
+	    echo "Server: $SRVIPPORT, server interface: $IFACE, server priv. ip: $srvprivip"
 	    read -p "Shall i run server config? [enter] to continue or CTRL+C to exit" cont
             echo "Running server configuration"
 	    source server_configure.sh
@@ -61,6 +63,8 @@ select fav in "${opts[@]}"; do
 	    IPORT=${IPORT:-41194}
 	    read -p "Enter server pub key: " SRVPUB
 	    SRVIPPORT="$serverip:$IPORT"
+	    read -p "Enter peer private ip [192.168.6.2/24]: " peerprivip
+	    peerprivip=${peerprivip:-192.168.6.2\/24}
 	    echo "Server: $SRVIPPORT, server pub key: $SRVPUB"
 	    read -p "Shall i run client config? [enter] to continue or CTRL+C to exit" cont
             echo "Running client configuration"
