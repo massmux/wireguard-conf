@@ -29,7 +29,6 @@ if ! [ $(id -u) = 0 ]; then
 fi
 
 WORKDIR="/etc/wireguard"
-SRVPUB="xxxx"
 
 clear
 PS3='Wireguard config, choose an option: '
