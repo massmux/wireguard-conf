@@ -28,7 +28,7 @@ apt-get -y install wireguard
 mkdir $WORKDIR
 cd $WORKDIR
 
-echo "generating private/public key pair for this server"
+echo "generating private/public key pair for this peer"
 umask 077
 wg genkey | tee privatekey | wg pubkey > publickey
 
