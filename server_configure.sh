@@ -55,9 +55,9 @@ IPT6="/sbin/ip6tables"
 
 IN_FACE="$IFACE"                   # NIC connected to the internet
 WG_FACE="wg0"                    # WG NIC
-SUB_NET="192.168.6.0/24"            # WG IPv4 sub/net aka CIDR
+SUB_NET="$WGSUBNET"            # WG IPv4 sub/net aka CIDR
 WG_PORT="$IPORT"                  # WG udp port
-SUB_NET_6="fd42:42:42:42::/112"  # WG IPv6 sub/net
+SUB_NET_6="$WGSUBNET6"  # WG IPv6 sub/net
 
 ## IPv4 ##
 \$IPT -t nat -I POSTROUTING 1 -s \$SUB_NET -o \$IN_FACE -j MASQUERADE
@@ -79,9 +79,9 @@ IPT6="/sbin/ip6tables"
  
 IN_FACE="$IFACE"                   # NIC connected to the internet
 WG_FACE="wg0"                    # WG NIC 
-SUB_NET="192.168.6.0/24"            # WG IPv4 sub/net aka CIDR
+SUB_NET="$WGSUBNET"            # WG IPv4 sub/net aka CIDR
 WG_PORT="$IPORT"                  # WG udp port
-SUB_NET_6="fd42:42:42:42::/112"  # WG IPv6 sub/net
+SUB_NET_6="$WGSUBNET6"  # WG IPv6 sub/net
  
 # IPv4 rules #
 \$IPT -t nat -D POSTROUTING -s \$SUB_NET -o \$IN_FACE -j MASQUERADE
@@ -109,9 +109,9 @@ PostUp = $WORKDIR/helper/add-nat-routing.sh
 PostDown = $WORKDIR/helper/remove-nat-routing.sh
 
 [Peer]
-# must be changed with peer1 public key
+# first peer part
 PublicKey = PEER1PUB
-AllowedIPs = 192.168.6.0/24
+AllowedIPs = $WGSUBNET,$WGSUBNET6
 EOF
 
 echo "enabling the server"
@@ -119,4 +119,4 @@ systemctl enable wg-quick@wg0.service
 
 
 echo "server public key is: $srvpub"
-echo "after configuring the client, add peer public key with opt. 3"
+

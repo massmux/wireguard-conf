@@ -23,12 +23,14 @@
 
 
 
-#if ! [ $(id -u) = 0 ]; then
-#   echo "This script must be run as root"
-#   exit 1
-#fi
+if ! [ $(id -u) = 0 ]; then
+   echo "This script must be run as root"
+   exit 1
+fi
 
 WORKDIR="/etc/wireguard"
+WGSUBNET="192.168.6.0/24"
+WGSUBNET6="fd42:42:42:42::/112"
 
 clear
 PS3='Wireguard config, choose an option: '
