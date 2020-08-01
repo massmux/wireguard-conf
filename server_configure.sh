@@ -24,6 +24,7 @@
 
 
 echo "installing software"
+
 apt-get update
 apt-get -y install wireguard
 
@@ -38,7 +39,6 @@ wg genkey | tee privatekey | wg pubkey > publickey
 
 srvpub=`cat publickey`
 srvpriv=`cat privatekey`
-
 
 echo "setting ip forward"
 tee /etc/sysctl.d/10-wireguard.conf <<EOF

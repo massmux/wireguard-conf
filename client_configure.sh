@@ -22,6 +22,7 @@
 
 
 echo "installing software"
+
 apt-get update
 apt-get -y install wireguard
 
@@ -37,8 +38,7 @@ wg genkey | tee privatekey | wg pubkey > publickey
 clipub=`cat publickey`
 clipriv=`cat privatekey`
 
-
-echo "writing wg0.conf file"
+echo "writing peer's wg0.conf file"
 tee wg0.conf <<EOF
 [Interface]
 PrivateKey = $clipriv
