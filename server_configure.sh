@@ -107,7 +107,6 @@ ListenPort = $IPORT
 PrivateKey = $srvpriv
 PostUp = $WORKDIR/helper/add-nat-routing.sh
 PostDown = $WORKDIR/helper/remove-nat-routing.sh
-#SaveConfig
 
 EOF
 

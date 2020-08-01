@@ -34,6 +34,7 @@ WGSUBNET6="fd42:42:42:42::/112"
 
 clear
 PS3='Wireguard config, choose an option: '
+echo $PS3
 opts=("Server Conf" "Peer Conf" "Add Peer" "Quit")
 select fav in "${opts[@]}"; do
     case $fav in
@@ -77,8 +78,6 @@ select fav in "${opts[@]}"; do
 	    read -p "Enter peer's public key: " clipubkey
 	    echo "Peer's pub key: $clipubkey"
 	    read -p "Shall i set peer's pubic key? [enter] to continue or CTRL+C to abort" cont
-	    ##sed -i "s#PEER1PUB#$clipubkey#g" $WORKDIR/wg0.conf
-	    ##sed -i "s/#SaveConfig/SaveConfig=true/g" $WORKDIR/wg0.conf
 	    echo "adding peer to server"
 	    source add.sh
 	    echo "restarting service"

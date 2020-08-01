@@ -48,19 +48,13 @@ AllowedIPs = 0.0.0.0/0, ::/0
 Endpoint = $SRVIPPORT
 PersistentKeepalive = 15
 
-#[Peer]
-## Desktop/client VPN public key ##
-#PublicKey = $clipub
 EOF
 
-echo "enabling the client"
+echo "enabling the system"
 systemctl enable wg-quick@wg0.service
-
-#echo "restarting the client"
-#systemctl restart wg-quick@wg0.service
 
 echo "==== Peer public key ===="
 echo "Peer public key is: $clipub"
-echo "Add this key to the server"
-echo "and then restart the server: systemctl restart wg-quick@wg0.service"
+echo "Add this key to the server, by choosing opt. 3"
+echo "and then restart the peer: systemctl restart wg-quick@wg0.service"
 
