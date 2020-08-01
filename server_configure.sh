@@ -107,6 +107,7 @@ ListenPort = $IPORT
 PrivateKey = $srvpriv
 PostUp = $WORKDIR/helper/add-nat-routing.sh
 PostDown = $WORKDIR/helper/remove-nat-routing.sh
+#SaveConfig
 
 [Peer]
 # first peer part
@@ -117,6 +118,6 @@ EOF
 echo "enabling the server"
 systemctl enable wg-quick@wg0.service
 
-
-echo "server public key is: $srvpub"
+echo "==== Server public key ===="
+echo "Server public key is: $srvpub"
 

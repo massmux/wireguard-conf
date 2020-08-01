@@ -59,7 +59,8 @@ systemctl enable wg-quick@wg0.service
 #echo "restarting the client"
 #systemctl restart wg-quick@wg0.service
 
-echo "peer public key is: $clipub"
-echo "insert the client public key to wg0.conf on the server"
+echo "==== Peer public key ===="
+echo "Peer public key is: $clipub"
+echo "Add this key to the server"
 echo "and then restart the server: systemctl restart wg-quick@wg0.service"
 
