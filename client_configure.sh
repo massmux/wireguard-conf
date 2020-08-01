@@ -48,9 +48,9 @@ AllowedIPs = 0.0.0.0/0, ::/0
 Endpoint = $SRVIPPORT
 PersistentKeepalive = 15
 
-[Peer]
+#[Peer]
 ## Desktop/client VPN public key ##
-PublicKey = $clipub
+#PublicKey = $clipub
 EOF
 
 echo "enabling the client"
