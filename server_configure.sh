@@ -27,6 +27,10 @@ echo "installing software"
 apt-get update
 apt-get -y install wireguard
 
+if [ ! -d "$WORKDIR" ]; then
+        mkdir $WORKDIR
+fi
+
 cd $WORKDIR
 echo "generating private/public key pair for this server"
 umask 077

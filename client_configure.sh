@@ -25,9 +25,11 @@ echo "installing software"
 apt-get update
 apt-get -y install wireguard
 
-mkdir $WORKDIR
-cd $WORKDIR
+if [ ! -d "$WORKDIR" ]; then
+        mkdir $WORKDIR
+fi
 
+cd $WORKDIR
 echo "generating private/public key pair for this peer"
 umask 077
 wg genkey | tee privatekey | wg pubkey > publickey
