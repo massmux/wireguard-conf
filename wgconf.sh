@@ -46,8 +46,8 @@ select fav in "${opts[@]}"; do
 	    IPORT=${IPORT:-41194}
 	    read -p "Enter server interface [eth0]: " IFACE
 	    IFACE=${IFACE:-eth0}
-	    read -p "Enter server private ip [192.168.6.1/24]: " srvprivip
-	    srvprivip=${srvprivip:-192.168.6.1\/24}
+	    read -p "Enter server private ip [192.168.6.1/32]: " srvprivip
+	    srvprivip=${srvprivip:-192.168.6.1\/32}
 	    SRVIPPORT="$serverip:$IPORT"
 	    echo "Server: $SRVIPPORT, server interface: $IFACE, server priv. ip: $srvprivip"
 	    read -p "Shall i run server config? [enter] to continue or CTRL+C to exit" cont
@@ -64,8 +64,8 @@ select fav in "${opts[@]}"; do
 	    IPORT=${IPORT:-41194}
 	    read -p "Enter server pub key: " SRVPUB
 	    SRVIPPORT="$serverip:$IPORT"
-	    read -p "Enter peer private ip [192.168.6.2/24]: " peerprivip
-	    peerprivip=${peerprivip:-192.168.6.2\/24}
+	    read -p "Enter peer private ip [192.168.6.2/32]: " peerprivip
+	    peerprivip=${peerprivip:-192.168.6.2\/32}
 	    echo "Server: $SRVIPPORT, server pub key: $SRVPUB, peer priv ip: $peerprivip"
 	    read -p "Shall i run client config? [enter] to continue or CTRL+C to exit" cont
             echo "Running client configuration"
