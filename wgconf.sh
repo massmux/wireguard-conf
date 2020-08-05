@@ -40,7 +40,7 @@ select fav in "${opts[@]}"; do
     case $fav in
         "Server Conf")
 	    echo "** to be run on SERVER**"
-	    read -p "Enter server ip [1.2.3.4]: " serverip
+	    read -p "Enter server public ip [1.2.3.4]: " serverip
 	    serverip=${serverip:-1.2.3.4}
 	    read -p "Enter server port [41194]: " IPORT
 	    IPORT=${IPORT:-41194}
@@ -58,11 +58,11 @@ select fav in "${opts[@]}"; do
             ;;
         "Peer Conf")
 	    echo "** to be run on PEER (CLIENT), configures a peer **"
-	    read -p "Enter server ip [1.2.3.4]: " serverip
+	    read -p "Enter server public ip [1.2.3.4]: " serverip
 	    serverip=${serverip:-1.2.3.4}
 	    read -p "Enter server port [41194]: " IPORT
 	    IPORT=${IPORT:-41194}
-	    read -p "Enter server pub key: " SRVPUB
+	    read -p "Enter server public key: " SRVPUB
 	    SRVIPPORT="$serverip:$IPORT"
 	    read -p "Enter peer private ip [192.168.6.2/32]: " peerprivip
 	    peerprivip=${peerprivip:-192.168.6.2\/32}
